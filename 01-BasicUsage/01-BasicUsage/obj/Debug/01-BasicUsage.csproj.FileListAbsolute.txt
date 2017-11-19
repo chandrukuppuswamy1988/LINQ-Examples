@@ -1,0 +1,7 @@
+E:\Repository\LINQ Examples\01-BasicUsage\01-BasicUsage\bin\Debug\01-BasicUsage.exe.config
+E:\Repository\LINQ Examples\01-BasicUsage\01-BasicUsage\bin\Debug\01-BasicUsage.exe
+E:\Repository\LINQ Examples\01-BasicUsage\01-BasicUsage\bin\Debug\01-BasicUsage.pdb
+E:\Repository\LINQ Examples\01-BasicUsage\01-BasicUsage\obj\Debug\01-BasicUsage.csprojResolveAssemblyReference.cache
+E:\Repository\LINQ Examples\01-BasicUsage\01-BasicUsage\obj\Debug\01-BasicUsage.csproj.CoreCompileInputs.cache
+E:\Repository\LINQ Examples\01-BasicUsage\01-BasicUsage\obj\Debug\01-BasicUsage.exe
+E:\Repository\LINQ Examples\01-BasicUsage\01-BasicUsage\obj\Debug\01-BasicUsage.pdb
