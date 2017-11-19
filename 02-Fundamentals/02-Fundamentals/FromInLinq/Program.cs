@@ -6,11 +6,8 @@ using System.Threading.Tasks;
 
 namespace FromInLinq
 {
-
-
+    
     // Simple Entity Classes
-
-
     public class Customer
     {
         public String Name { get; set; }
@@ -27,8 +24,6 @@ namespace FromInLinq
     class Program
     {
         // Simple seed data for the examples
-
-
         static Customer[] customers = new Customer[] {
             new Customer {
                 Name = "Paolo", City = "Brescia",
@@ -123,3 +118,4 @@ namespace FromInLinq
 
     }
 }
+

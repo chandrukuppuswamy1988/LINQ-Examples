@@ -1,0 +1,6 @@
+E:\Repository\LINQ-Examples\LINQ-Examples\02-Fundamentals\02-Fundamentals\Join\bin\Debug\Join.exe.config
+E:\Repository\LINQ-Examples\LINQ-Examples\02-Fundamentals\02-Fundamentals\Join\bin\Debug\Join.exe
+E:\Repository\LINQ-Examples\LINQ-Examples\02-Fundamentals\02-Fundamentals\Join\bin\Debug\Join.pdb
+E:\Repository\LINQ-Examples\LINQ-Examples\02-Fundamentals\02-Fundamentals\Join\obj\Debug\Join.csproj.CoreCompileInputs.cache
+E:\Repository\LINQ-Examples\LINQ-Examples\02-Fundamentals\02-Fundamentals\Join\obj\Debug\Join.exe
+E:\Repository\LINQ-Examples\LINQ-Examples\02-Fundamentals\02-Fundamentals\Join\obj\Debug\Join.pdb
