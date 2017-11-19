@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fundamentals", "02-Fundamen
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FromInLinq", "FromInLinq\FromInLinq.csproj", "{6AD08388-9EF9-43E3-8970-20E223BFEB78}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Join", "Join\Join.csproj", "{9AF414A9-7FB3-49B4-947D-05BF1D9E961D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JoinExample", "Join\JoinExample.csproj", "{9AF414A9-7FB3-49B4-947D-05BF1D9E961D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -14,6 +14,7 @@ namespace Join
     {
         public Int32 IdCategory { get; set; }
         public String Name { get; set; }
+        public string Year { get; set; }
     }
 
     public class Product
@@ -21,6 +22,7 @@ namespace Join
         public String IdProduct { get; set; }
         public Int32 IdCategory { get; set; }
         public String Description { get; set; }
+        public string Year { get; set; }
     }
 
     #endregion
@@ -31,17 +33,17 @@ namespace Join
         #region DATA SEED
 
         static Category[] categories = new Category[] {
-           new Category { IdCategory = 1, Name = "Pasta"},
-           new Category { IdCategory = 2, Name = "Beverages"},
-           new Category { IdCategory = 3, Name = "Other food"},
+           new Category { IdCategory = 1, Name = "Pasta", Year="2007"},
+           new Category { IdCategory = 2, Name = "Beverages", Year="2007"},
+           new Category { IdCategory = 3, Name = "Other food", Year="2017"},
         };
 
         static Product[] products = new Product[] {
-            new Product { IdProduct = "PASTA01", IdCategory = 1, Description = "Tortellini" },
-            new Product { IdProduct = "PASTA02", IdCategory = 1, Description = "Spaghetti" },
-            new Product { IdProduct = "PASTA03", IdCategory = 1, Description = "Fusilli" },
-            new Product { IdProduct = "BEV01", IdCategory = 2, Description = "Water" },
-            new Product { IdProduct = "BEV02", IdCategory = 2, Description = "Orange Juice" },
+            new Product { IdProduct = "PASTA01", IdCategory = 1, Description = "Tortellini", Year="2007" },
+            new Product { IdProduct = "PASTA02", IdCategory = 1, Description = "Spaghetti", Year="2007" },
+            new Product { IdProduct = "PASTA03", IdCategory = 1, Description = "Fusilli", Year="2007" },
+            new Product { IdProduct = "BEV01", IdCategory = 2, Description = "Water", Year="2015" },
+            new Product { IdProduct = "BEV02", IdCategory = 2, Description = "Orange Juice", Year="2017" },
         };
 
         #endregion
@@ -76,7 +78,6 @@ namespace Join
 
         }
 
-
         /// <summary>
         /// Join using group 
         /// </summary>
@@ -104,7 +105,6 @@ namespace Join
 
         }
 
-
         /// <summary>
         /// simple Left join Query using DefaultIfEmpty Extension
         /// </summary>
@@ -117,9 +117,30 @@ namespace Join
             from pc in productsByCategory.DefaultIfEmpty(
             new Product
             {
-                IdProduct = String.Empty,Description = String.Empty,IdCategory = 0
+                IdProduct = String.Empty,
+                Description = String.Empty,
+                IdCategory = 0
             })
-            select new  { c.IdCategory, CategoryName = c.Name, Product = pc.Description };
+            select new { c.IdCategory, CategoryName = c.Name, Product = pc.Description };
+            foreach (var item in categoriesAndProducts)
+            {
+                Console.WriteLine(item);
+            }
+
+        }
+        
+        /// <summary>
+        /// Join with Composite Key Mapping
+        /// </summary>
+        static void QueryWithCompositeKeyMapping()
+        {
+            var categoriesAndProducts =
+                                       from c in categories
+                                       join p in products
+                                       on new { c.IdCategory, c.Year } equals new { p.IdCategory, p.Year }
+                                       into productsByCategory
+                                       select new { c.IdCategory, CategoryName = c.Name };
+
             foreach (var item in categoriesAndProducts)
             {
                 Console.WriteLine(item);
@@ -127,6 +148,26 @@ namespace Join
 
         }
 
+        /// <summary>
+        /// Let clause usages -- 
+        /// The let clause allows you to store the result of a subexpression in a variable that can be used
+        /// somewhere else in the query
+        /// </summary>
+        static void LetKeywordUsage()
+        {
+            var categoriesByProductsNumberQuery =
+                                                    from c in categories
+                                                    join p in products on c.IdCategory equals p.IdCategory
+                                                    into productsByCategory
+                                                    let ProductsCount = productsByCategory.Count()
+                                                    orderby ProductsCount
+                                                    select new { c.IdCategory, ProductsCount };
+
+            foreach (var item in categoriesByProductsNumberQuery)
+            {
+                Console.WriteLine(item);
+            }
+        }
     }
 }
 
