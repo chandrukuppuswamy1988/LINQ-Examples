@@ -24,7 +24,7 @@ namespace _02_Fundamentals
         static void Main(string[] args)
         {
 
-            GroupAnoynomousType();
+            QueryExpressionUsingIntoClass();
             Console.ReadLine();
         }
         /// <summary>
@@ -81,6 +81,29 @@ namespace _02_Fundamentals
                     Console.WriteLine("\t{0}", item.Name);
                 }
             }
+        }
+
+        /// <summary>
+        /// Group clause with into keywork
+        /// into keyword is used to store the grouped values for further processing
+        /// </summary>
+        static void QueryExpressionUsingIntoClass()
+        {
+            var developersGroupedByLanguage =
+                                                from d in developers
+                                                group d by d.Language into developersGrouped
+                                                select new
+                                                {
+                                                    Language = developersGrouped.Key,
+                                                    DevelopersCount = developersGrouped.Count()
+                                                };
+
+            foreach (var group in developersGroupedByLanguage)
+            {
+                Console.WriteLine("Language {0} contains {1} developers",
+                group.Language, group.DevelopersCount);
+            }
+
         }
     }
 }

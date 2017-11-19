@@ -51,11 +51,9 @@ namespace FromInLinq
 
         static void Main(string[] args)
         {
-            queryWithJoin();
+            OrderByMultipleFields();
 
-            // QueryExpressionWithWhereClause();
             Console.ReadLine();
-
         }
         /// <summary>
         /// Simple method Illustrate to have 2 from Clauses in the LINQ statement
@@ -88,8 +86,39 @@ namespace FromInLinq
             {
                 Console.WriteLine(item);
             }
+        }
+        /// <summary>
+        /// Simple Order By Example
+        /// </summary>
+        static void OrderByExample()
+        {
+            var ordersSortedByEuroAmount =
+                                           from c in customers
+                                           from o in c.Orders
+                                           orderby o.EuroAmount
+                                           select new { c.Name, o.IdOrder, o.EuroAmount };
 
 
+            foreach (var item in ordersSortedByEuroAmount)
+            {
+                Console.WriteLine(item);
+            }
+        }
+        /// <summary>
+        /// Order by using multiple fields
+        /// </summary>
+        static void OrderByMultipleFields()
+        {
+            var ordersSortedByCustomerAndEuroAmount =
+                                                        from c in customers
+                                                        from o in c.Orders
+                                                        orderby c.Name, o.EuroAmount descending
+                                                        select new { c.Name, o.IdOrder, o.EuroAmount };
+
+            foreach (var item in ordersSortedByCustomerAndEuroAmount)
+            {
+                Console.WriteLine(item);
+            }
         }
 
     }
