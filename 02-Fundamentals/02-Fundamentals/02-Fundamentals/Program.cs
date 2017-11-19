@@ -21,8 +21,6 @@ namespace _02_Fundamentals
                     new Developer { Name = "Frank", Language = "VB.NET", Age = 48 },
             };
 
-
-
         static void Main(string[] args)
         {
 
@@ -43,9 +41,7 @@ namespace _02_Fundamentals
             foreach (var item in developersUsingCSharp)
             {
                 Console.WriteLine(item);
-            }
-
-    
+            }    
         }
 
 
@@ -65,10 +61,7 @@ namespace _02_Fundamentals
                 {
                     Console.WriteLine("\t{0}", item.Name);
                 }
-            }
-
-            
-
+            }           
         }
 
         /// <summary>
@@ -88,9 +81,6 @@ namespace _02_Fundamentals
                     Console.WriteLine("\t{0}", item.Name);
                 }
             }
-
         }
-
-
     }
 }
