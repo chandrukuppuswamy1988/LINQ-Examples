@@ -1,0 +1,7 @@
+E:\Repository\LINQ-Examples\LINQ-Examples\02-Fundamentals\02-Fundamentals\02-Fundamentals\bin\Debug\02-Fundamentals.exe.config
+E:\Repository\LINQ-Examples\LINQ-Examples\02-Fundamentals\02-Fundamentals\02-Fundamentals\bin\Debug\02-Fundamentals.exe
+E:\Repository\LINQ-Examples\LINQ-Examples\02-Fundamentals\02-Fundamentals\02-Fundamentals\bin\Debug\02-Fundamentals.pdb
+E:\Repository\LINQ-Examples\LINQ-Examples\02-Fundamentals\02-Fundamentals\02-Fundamentals\obj\Debug\Fundamentals.csprojResolveAssemblyReference.cache
+E:\Repository\LINQ-Examples\LINQ-Examples\02-Fundamentals\02-Fundamentals\02-Fundamentals\obj\Debug\Fundamentals.csproj.CoreCompileInputs.cache
+E:\Repository\LINQ-Examples\LINQ-Examples\02-Fundamentals\02-Fundamentals\02-Fundamentals\obj\Debug\02-Fundamentals.exe
+E:\Repository\LINQ-Examples\LINQ-Examples\02-Fundamentals\02-Fundamentals\02-Fundamentals\obj\Debug\02-Fundamentals.pdb

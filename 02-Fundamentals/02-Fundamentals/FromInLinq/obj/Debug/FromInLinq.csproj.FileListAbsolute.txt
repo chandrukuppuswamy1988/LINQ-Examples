@@ -4,3 +4,9 @@ E:\Repository\LINQ-Examples\LINQ-Examples\02-Fundamentals\FromInLinq\bin\Debug\F
 E:\Repository\LINQ-Examples\LINQ-Examples\02-Fundamentals\FromInLinq\obj\Debug\FromInLinq.csproj.CoreCompileInputs.cache
 E:\Repository\LINQ-Examples\LINQ-Examples\02-Fundamentals\FromInLinq\obj\Debug\FromInLinq.exe
 E:\Repository\LINQ-Examples\LINQ-Examples\02-Fundamentals\FromInLinq\obj\Debug\FromInLinq.pdb
+E:\Repository\LINQ-Examples\LINQ-Examples\02-Fundamentals\02-Fundamentals\FromInLinq\bin\Debug\FromInLinq.exe.config
+E:\Repository\LINQ-Examples\LINQ-Examples\02-Fundamentals\02-Fundamentals\FromInLinq\bin\Debug\FromInLinq.exe
+E:\Repository\LINQ-Examples\LINQ-Examples\02-Fundamentals\02-Fundamentals\FromInLinq\bin\Debug\FromInLinq.pdb
+E:\Repository\LINQ-Examples\LINQ-Examples\02-Fundamentals\02-Fundamentals\FromInLinq\obj\Debug\FromInLinq.csproj.CoreCompileInputs.cache
+E:\Repository\LINQ-Examples\LINQ-Examples\02-Fundamentals\02-Fundamentals\FromInLinq\obj\Debug\FromInLinq.exe
+E:\Repository\LINQ-Examples\LINQ-Examples\02-Fundamentals\02-Fundamentals\FromInLinq\obj\Debug\FromInLinq.pdb

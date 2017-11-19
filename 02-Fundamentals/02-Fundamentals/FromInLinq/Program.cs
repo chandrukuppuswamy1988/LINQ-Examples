@@ -6,36 +6,23 @@ using System.Threading.Tasks;
 
 namespace FromInLinq
 {
+    public class Customer
+    {
+        public String Name { get; set; }
+        public String City { get; set; }
+        public Order[] Orders { get; set; }
+    }
+    public class Order
+    {
+        public Int32 IdOrder { get; set; }
+        public Decimal EuroAmount { get; set; }
+        public String Description { get; set; }
+    }
     class Program
     {
         // Simple Entity Classes
 
-        public class Customer
-        {
-            public String Name { get; set; }
-            public String City { get; set; }
-            public Order[] Orders { get; set; }
-        }
-        public class Order
-        {
-            public Int32 IdOrder { get; set; }
-            public Decimal EuroAmount { get; set; }
-            public String Description { get; set; }
-        }
-
-        static void Main(string[] args)
-        {
-            queryWithJoin();
-
-            Console.ReadLine();
-
-        }
-        /// <summary>
-        /// Simple method Illustrate to have 2 from Clauses in the LINQ statement
-        /// </summary>
-        static void queryWithJoin()
-        {
-            Customer[] customers = new Customer[] {
+        static Customer[] customers = new Customer[] {
             new Customer {
                 Name = "Paolo", City = "Brescia",
                 Orders = new Order[]
@@ -51,7 +38,25 @@ namespace FromInLinq
                     new Order { IdOrder = 4, EuroAmount = 320, Description = "Order 4" },
                     new Order { IdOrder = 5, EuroAmount = 170, Description = "Order 5" },
             }
-            } };
+            }
+
+        };
+
+        static void Main(string[] args)
+        {
+             queryWithJoin();
+
+          // QueryExpressionWithWhereClause();
+
+            Console.ReadLine();
+
+        }
+        /// <summary>
+        /// Simple method Illustrate to have 2 from Clauses in the LINQ statement
+        /// </summary>
+        static void queryWithJoin()
+        {
+
             var ordersQuery =
             from c in customers
             from o in c.Orders
@@ -61,5 +66,25 @@ namespace FromInLinq
                 Console.WriteLine(item);
             }
         }
+
+        /// <summary>
+        /// Simple Where Condition Example
+        /// </summary>
+        static void QueryExpressionWithWhereClause()
+        {
+            var ordersQuery =
+                                from c in customers
+                                from o in c.Orders
+                                where o.EuroAmount > 200
+                                select new { c.Name, o.IdOrder, o.EuroAmount };
+
+            foreach (var item in ordersQuery)
+            {
+                Console.WriteLine(item);
+            }
+
+
+        }
+
+        }
     }
-}
