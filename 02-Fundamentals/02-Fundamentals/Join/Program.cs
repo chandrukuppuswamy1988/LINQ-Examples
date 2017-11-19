@@ -54,7 +54,10 @@ namespace Join
 
         }
 
-        static void QueryWithInnerJoin()
+        /// <summary>
+        /// simple inner join 
+        /// </summary>
+        static void QueryWithJoin()
         {
             var categoriesAndProducts =
                                         from c in categories
@@ -73,6 +76,10 @@ namespace Join
 
         }
 
+
+        /// <summary>
+        /// Join using group 
+        /// </summary>
         static void GroupJoinExample()
         {
             var categoriesAndProducts =
@@ -96,5 +103,31 @@ namespace Join
             }
 
         }
+
+
+        /// <summary>
+        /// simple Left join Query using DefaultIfEmpty Extension
+        /// </summary>
+        static void QueryWithLeftOuterJoin()
+        {
+            var categoriesAndProducts =
+            from c in categories
+            join p in products on c.IdCategory equals p.IdCategory
+            into productsByCategory
+            from pc in productsByCategory.DefaultIfEmpty(
+            new Product
+            {
+                IdProduct = String.Empty,Description = String.Empty,IdCategory = 0
+            })
+            select new  { c.IdCategory, CategoryName = c.Name, Product = pc.Description };
+            foreach (var item in categoriesAndProducts)
+            {
+                Console.WriteLine(item);
+            }
+
+        }
+
     }
 }
+
+
