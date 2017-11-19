@@ -43,7 +43,7 @@ namespace FromInLinq
                     new Order { IdOrder = 1, EuroAmount = 100, Description = "Order 1" },
                     new Order { IdOrder = 2, EuroAmount = 150, Description = "Order 2" },
                     new Order { IdOrder = 3, EuroAmount = 230, Description = "Order 3" },
-              }
+                }
             },
             new Customer {
                 Name = "Marco", City = "Torino",
