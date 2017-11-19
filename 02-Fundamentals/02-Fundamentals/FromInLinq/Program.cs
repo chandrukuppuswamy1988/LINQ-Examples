@@ -6,6 +6,11 @@ using System.Threading.Tasks;
 
 namespace FromInLinq
 {
+
+
+    // Simple Entity Classes
+
+
     public class Customer
     {
         public String Name { get; set; }
@@ -18,9 +23,11 @@ namespace FromInLinq
         public Decimal EuroAmount { get; set; }
         public String Description { get; set; }
     }
+
     class Program
     {
-        // Simple Entity Classes
+        // Simple seed data for the examples
+
 
         static Customer[] customers = new Customer[] {
             new Customer {
@@ -44,9 +51,9 @@ namespace FromInLinq
 
         static void Main(string[] args)
         {
-             queryWithJoin();
+            queryWithJoin();
 
-          // QueryExpressionWithWhereClause();
+            // QueryExpressionWithWhereClause();
 
             Console.ReadLine();
 
@@ -86,5 +93,5 @@ namespace FromInLinq
 
         }
 
-        }
     }
+}
