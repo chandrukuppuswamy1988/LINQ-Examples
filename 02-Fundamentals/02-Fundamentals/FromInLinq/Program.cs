@@ -54,7 +54,6 @@ namespace FromInLinq
             queryWithJoin();
 
             // QueryExpressionWithWhereClause();
-
             Console.ReadLine();
 
         }
