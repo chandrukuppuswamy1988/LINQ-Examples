@@ -51,7 +51,7 @@ namespace Join
         static void Main(string[] args)
         {
 
-            GroupJoinExample();
+            LetKeywordUsage();
             Console.ReadLine();
 
         }
@@ -168,6 +168,7 @@ namespace Join
                 Console.WriteLine(item);
             }
         }
+
     }
 }
 
