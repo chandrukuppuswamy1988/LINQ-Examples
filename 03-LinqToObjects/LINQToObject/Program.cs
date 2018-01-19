@@ -58,7 +58,10 @@ namespace LINQToObject
 
     class Program
     {
-        Customer[] customers = new Customer[] {
+
+        #region DATA SEED
+
+        static Customer[] customers = new Customer[] {
 
             new Customer {Name = "Paolo", City = "Brescia",
                 Country = Countries.Italy, Orders = new Order[] {
@@ -76,7 +79,7 @@ namespace LINQToObject
                 Country = Countries.USA, Orders = new Order[] {
                     new Order { IdOrder = 6, Quantity = 20, IdProduct = 5 ,Shipped = false, Month = "July"}}}};
 
-        Product[] products = new Product[] {
+        static Product[] products = new Product[] {
                         new Product {IdProduct = 1, Price = 10 },
                         new Product {IdProduct = 2, Price = 20 },
                         new Product {IdProduct = 3, Price = 30 },
@@ -85,8 +88,124 @@ namespace LINQToObject
                         new Product {IdProduct = 6, Price = 60 }
                 };
 
+        #endregion
+
         static void Main(string[] args)
         {
+            OrderByWithCustomComparer();
+            Console.ReadLine();
+
         }
+
+        #region WHERE WITH INDEX
+
+        static void QueryWithRestrictionAndIndexBasedFilter()
+        {
+            var expr = customers
+                       .Where((c, index) => (c.Country == Countries.Italy && index >= 1))
+                       .Select(c => c.Name);
+            foreach (var item in expr)
+            {
+                Console.WriteLine(item);
+            }
+        }
+
+        static void QueryWithPagingRestriction()
+        {
+            int start = 1;
+            int end = 3;
+            var expr = customers
+                        .Where((c, index) => ((index >= start) && (index < end)))
+                        .Select(c => c.Name);
+
+            foreach (var item in expr)
+            {
+                Console.WriteLine(item);
+            }
+
+        }
+
+        #endregion
+
+        #region PROJECTION OPERATORS
+        
+        static void SelectInScenarioOfSelectMany()
+        {
+            var orders = customers
+                        .Where(c => c.Country == Countries.Italy)
+                        .Select(c => c.Orders);
+
+            foreach (var item in orders)
+            {
+                Console.WriteLine(item);
+            }
+
+            // Printes LINQToObject.Order[] twice which is not Indented 
+            // so we replace the select with select many shown in SelectMany functions
+
+        }
+
+        /// <summary>
+        /// The below functions has shows the flatened list of the Orders
+        /// </summary>
+        static void SelectMany()
+        {
+            var ordersList = customers
+                             .Where(c => c.Country == Countries.Italy)
+                             .SelectMany(c => c.Orders);
+
+            foreach (var item in ordersList)
+            {
+                Console.WriteLine(item);
+            }
+        }
+
+        /// <summary>
+        /// Select Many Function can be implemented alternative way as mentioned in the below function
+        /// </summary>
+        static void AlternativeForSelectMany()
+        {
+            var orders =
+                from c in customers
+                where c.Country == Countries.Italy
+                from o in c.Orders
+                select o;
+
+            foreach (var item in orders)
+            {
+                Console.WriteLine(item);
+            }
+        }
+
+        #endregion
+
+        #region ORDER EXAMPLE
+
+        static void QueryWithOrderByAndThenByDesc()
+        {
+            var expr =
+                       from c in customers
+                       where c.Country == Countries.Italy
+                       orderby c.Name descending, c.City
+                       select new { c.Name, c.City };
+
+            foreach (var item in expr)
+            {
+                Console.WriteLine("Name: {0} City: {1}", item.Name, item.City);
+            }
+        }
+
+        static void OrderByWithCustomComparer()
+        {
+            var orders = customers.SelectMany(c => c.Orders).OrderBy(o => o.Month, new MonthComparer());
+            foreach (var item in orders)
+            {
+                Console.WriteLine(item);
+            }
+        }
+
+        #endregion
+
+
     }
 }

@@ -1,0 +1,7 @@
+E:\Repository\LINQ-Examples\LINQ-Examples\03-LinqToObjects\LINQToObject\bin\Debug\LINQToObject.exe.config
+E:\Repository\LINQ-Examples\LINQ-Examples\03-LinqToObjects\LINQToObject\bin\Debug\LINQToObject.exe
+E:\Repository\LINQ-Examples\LINQ-Examples\03-LinqToObjects\LINQToObject\bin\Debug\LINQToObject.pdb
+E:\Repository\LINQ-Examples\LINQ-Examples\03-LinqToObjects\LINQToObject\obj\Debug\LINQToObject.csprojResolveAssemblyReference.cache
+E:\Repository\LINQ-Examples\LINQ-Examples\03-LinqToObjects\LINQToObject\obj\Debug\LINQToObject.csproj.CoreCompileInputs.cache
+E:\Repository\LINQ-Examples\LINQ-Examples\03-LinqToObjects\LINQToObject\obj\Debug\LINQToObject.exe
+E:\Repository\LINQ-Examples\LINQ-Examples\03-LinqToObjects\LINQToObject\obj\Debug\LINQToObject.pdb
