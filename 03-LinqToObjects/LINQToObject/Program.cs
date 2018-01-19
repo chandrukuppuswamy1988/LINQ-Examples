@@ -128,7 +128,7 @@ namespace LINQToObject
         #endregion
 
         #region PROJECTION OPERATORS
-        
+
         static void SelectInScenarioOfSelectMany()
         {
             var orders = customers
@@ -179,7 +179,7 @@ namespace LINQToObject
 
         #endregion
 
-        #region ORDER EXAMPLE
+        #region ORDER EXAMPLE AND REVERSE OPERATOR USAGE
 
         static void QueryWithOrderByAndThenByDesc()
         {
@@ -195,6 +195,9 @@ namespace LINQToObject
             }
         }
 
+        /// <summary>
+        /// here we created a MonthComparer class to customise the ordering of the list
+        /// </summary>
         static void OrderByWithCustomComparer()
         {
             var orders = customers.SelectMany(c => c.Orders).OrderBy(o => o.Month, new MonthComparer());
@@ -204,7 +207,26 @@ namespace LINQToObject
             }
         }
 
+        /// <summary>
+        /// It is usage of simple reverse operator which reverses the entire order
+        /// </summary>
+        static void ReverseOperator()
+        {
+            var expr = customers
+                        .Where(c => c.Country == Countries.Italy)
+                        .OrderByDescending(c => c.Name)
+                        .ThenBy(c => c.City)
+                        .Select(c => new { c.Name, c.City })
+                        .Reverse();
+
+            foreach (var item in expr)
+            {
+                Console.WriteLine(item);
+            }
+        }
+
         #endregion
+
 
 
     }
