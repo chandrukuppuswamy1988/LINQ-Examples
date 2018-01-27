@@ -112,7 +112,7 @@ namespace LINQToObject
 
         static void Main(string[] args)
         {
-            ContainsOperator();
+            TakeWhile();
             Console.ReadLine();
 
         }
@@ -592,7 +592,66 @@ namespace LINQToObject
 
         #endregion
 
+        #region PARTITION OPERATORS
 
+        public static void TakeWhile()
+        {
+            // globalAmount is the total amount for all the orders
+
+            var globalAmount = GetglobalAmount();
+            var limitAmount = globalAmount * 0.8m;
+            var aggregated = 0m;
+            var topCustomers =
+            (from c in customers
+             join o in (
+             from c in customers
+            from o in c.Orders
+            join p in products
+            on o.IdProduct equals p.IdProduct
+            select new { c.Name, OrderAmount = o.Quantity * p.Price }
+            ) on c.Name equals o.Name
+ into customersWithOrders
+             let TotalAmount = customersWithOrders.Sum(o => o.OrderAmount)
+             orderby TotalAmount descending
+             select new { c.Name, TotalAmount }
+            )
+            .TakeWhile(X => {
+                bool result = aggregated < limitAmount;
+                aggregated += X.TotalAmount;
+                return result;
+            });
+
+            foreach (var item in topCustomers)
+            {
+                Console.WriteLine(item.ToString());
+            }
+        }
+
+        public static decimal GetglobalAmount()
+        {
+            var customersOrders =
+                                   from c in customers
+                                   from o in c.Orders
+                                   join p in products on o.IdProduct equals p.IdProduct
+                                   select new { c.Name, OrderAmount = o.Quantity * p.Price };
+
+            var expr =
+                from c in customers
+                join o in customersOrders
+                on c.Name equals o.Name
+                into customersWithOrders
+                select new
+                {
+                    c.Name,
+                    TotalAmount = customersWithOrders.Sum(o => o.OrderAmount)
+                };
+
+            var totalAmount = expr.Sum(p => p.TotalAmount);
+
+            return totalAmount;
+        }
+
+        #endregion
 
     }
 }
