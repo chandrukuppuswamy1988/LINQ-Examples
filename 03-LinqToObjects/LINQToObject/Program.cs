@@ -92,7 +92,7 @@ namespace LINQToObject
 
         static void Main(string[] args)
         {
-            OrderByWithCustomComparer();
+            SimpleGroupingWithKey();
             Console.ReadLine();
 
         }
@@ -227,6 +227,38 @@ namespace LINQToObject
 
         #endregion
 
+        #region GROUPING OPERATORS
+
+        public static void SimpleGroupingWithKey()
+        {
+            var expr = customers.GroupBy(c => c.Country);
+            foreach (IGrouping<Countries, Customer> customerGroup in expr)
+            {
+                Console.WriteLine("Country: {0}", customerGroup.Key);
+                foreach (var item in customerGroup)
+                {
+                    Console.WriteLine("\t{0}", item);
+                }
+            }
+        }
+
+        public static void SimpleGroupingQueryExpression()
+        {
+            var expr = from c in customers
+                       group c by c.Country;
+
+            foreach (IGrouping<Countries, Customer> customerGroup in expr)
+            {
+                Console.WriteLine("Country: {0}", customerGroup.Key);
+                foreach (var item in customerGroup)
+                {
+                    Console.WriteLine("\t{0}", item);
+                }
+            }
+
+        }
+
+        #endregion
 
 
     }
