@@ -92,7 +92,7 @@ namespace LINQToObject
 
         static void Main(string[] args)
         {
-            SimpleGroupingWithKey();
+            GroupbywithCustomSelectorAndElementSelector();
             Console.ReadLine();
 
         }
@@ -258,7 +258,46 @@ namespace LINQToObject
 
         }
 
+        public static void GroupByCustomerNameByCountry()
+        {
+            var expr = customers
+                .GroupBy(c => c.Country,
+                (k, c) => new { Key = k, Count = c.Count() });
+
+            foreach (var group in expr)
+            {
+                Console.WriteLine("Key: {0} - Count: {1}", group.Key, group.Count);
+            }
+
+        }
+
+        public static void GroupbywithCustomSelectorAndElementSelector()
+        {
+            var expr = customers
+                .GroupBy(
+                c => c.Country, // keySelector
+                c => new { OrdersCount = c.Orders.Count() }, // elementSelector
+                (key, elements) => new
+                { // resultSelector
+                    Key = key,
+                    Count = elements.Count(),
+                    OrdersCount = elements.Sum(item => item.OrdersCount),
+                    element = elements
+                }
+                );
+
+            foreach (var group in expr)
+            {
+                Console.WriteLine("Key: {0} - Count: {1} - Orders Count: {2}",
+                group.Key, group.Count, group.OrdersCount);
+            }
+        }
+
+
+
         #endregion
+
+
 
 
     }
