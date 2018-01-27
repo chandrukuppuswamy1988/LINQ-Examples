@@ -52,6 +52,26 @@ namespace LINQToObject
             return String.Format("IdProduct: {0} – Price: {1}", this.IdProduct,
             this.Price);
         }
+
+        public override bool Equals(object obj)
+        {
+            if (!(obj is Product))
+                return false;
+            else
+            {
+                Product p = (Product)obj;
+                return (p.IdProduct == this.IdProduct &&
+                p.Price == this.Price);
+            }
+        }
+
+        public override int GetHashCode()
+        {
+            return String.Format("{0}|{1}", this.IdProduct, this.Price)
+            .GetHashCode();
+        }
+
+
     }
 
     #endregion
@@ -92,7 +112,7 @@ namespace LINQToObject
 
         static void Main(string[] args)
         {
-            GroupbywithCustomSelectorAndElementSelector();
+            MinMaxComplex();
             Console.ReadLine();
 
         }
@@ -297,7 +317,235 @@ namespace LINQToObject
 
         #endregion
 
+        #region JOIN OPERATORS
 
+        public static void JoinExample()
+        {
+            var expr = customers
+                .SelectMany(c => c.Orders)
+                .Join(products,
+                    o => o.IdProduct,
+                    p => p.IdProduct,
+                (o, p) => new
+                {
+                    o.Month,
+                    o.Shipped,
+                    p.IdProduct,
+                    p.Price
+                }
+                );
+
+            foreach (var item in expr)
+            {
+                Console.WriteLine(item);
+            }
+
+
+        }
+
+        public static void JoinWithQueryExpression()
+        {
+            var expr = from c in customers
+                       from o in c.Orders
+                       join p in products on o.IdProduct equals p.IdProduct
+                       select new { o.Month, o.Shipped, p.IdProduct, p.Price };
+
+            foreach (var item in expr)
+            {
+                Console.WriteLine(item);
+            }
+
+        }
+
+        #region Group Join
+
+        public static void GroupJoinExample()
+        {
+            var expr = products
+                .GroupJoin(
+                customers.SelectMany(c => c.Orders),
+                p => p.IdProduct,
+                o => o.IdProduct,
+                (p, orders) => new { p.IdProduct, Orders = orders }
+                );
+            foreach (var item in expr)
+            {
+                Console.WriteLine("Product: {0}", item.IdProduct);
+                foreach (var order in item.Orders)
+                {
+                    Console.WriteLine("\t{0}", order);
+                }
+            }
+        }
+
+        #endregion
+
+        public static void QueryExpressionWithJoinIntoClause()
+        {
+            var customersOrders =
+                from c in customers
+                from o in c.Orders
+                select o;
+
+            var expr =
+            from p in products
+            join o in customersOrders
+            on p.IdProduct equals o.IdProduct
+            into orders
+            select new { p.IdProduct, Orders = orders };
+
+            foreach (var item in expr)
+            {
+                Console.WriteLine(item);
+            }
+
+        }
+
+        /// <summary>
+        /// + as previous method just to show the sub query 
+        /// concept can be applied to the query
+        /// </summary>
+        public static void QueryExpressionWithJoinIntoClauseCompactVersion()
+        {
+            var expr =
+                from p in products
+                join o in (
+                from c in customers
+                from o in c.Orders
+                select o) on p.IdProduct equals o.IdProduct
+                into orders
+                select new { p.IdProduct, Orders = orders };
+
+
+            foreach (var item in expr)
+            {
+                Console.WriteLine("Product Id {0}", item.IdProduct);
+                foreach (var orders in item.Orders)
+                {
+                    Console.WriteLine(orders);
+                }
+            }
+
+        }
+
+        #endregion
+
+        #region SET OPERATORS
+
+        public static void DistinctOperator()
+        {
+            var expr =
+                (
+                    from c in customers
+                    from o in c.Orders
+                    join p in products on o.IdProduct equals p.IdProduct
+                    select p
+                ).Distinct();
+
+            foreach (var item in expr)
+            {
+                Console.WriteLine(item);
+            }
+
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        public static void UnionOperator()
+        {
+            Product[] productSetOne = {
+                new Product {IdProduct = 46, Price = 1000 },
+                new Product {IdProduct = 27, Price = 2000 },
+                new Product {IdProduct = 14, Price = 500 } };
+            Product[] productSetTwo = {
+                new Product {IdProduct = 11, Price = 350 },
+                new Product {IdProduct = 46, Price = 1000 } };
+
+            var productsUnion = productSetOne.Union(productSetTwo);
+
+            foreach (var item in productsUnion)
+            {
+                Console.WriteLine(item);
+            }
+
+            /// Union operator uses the equals and gehashcode operator so we need to ovveride these methods to 
+            /// get the required result.
+
+
+
+
+
+
+        }
+
+
+        #endregion
+
+        #region AGGREGATE OPERATORS
+
+        public static void CountExample()
+        {
+            var expr =
+                from c in customers
+                select new { c.Name, c.Country, OrdersCount = c.Orders.Count() };
+
+            foreach (var item in expr)
+            {
+                Console.WriteLine(item);
+            }
+
+        }
+
+        public static void SumExample()
+        {
+            var customersOrders =
+                from c in customers
+                from o in c.Orders
+                join p in products on o.IdProduct equals p.IdProduct
+                select new { c.Name, OrderAmount = o.Quantity * p.Price };
+
+            var expr = 
+                from c in customers
+                join o in customersOrders
+                on c.Name equals o.Name
+                into customersWithOrders
+                select new
+                {
+                    c.Name,
+                    TotalAmount = customersWithOrders.Sum(o => o.OrderAmount)
+                };
+
+            foreach (var item in expr)
+            {
+                Console.WriteLine(item);
+            }
+
+        }
+
+        public static void MinMaxSimple()
+        {
+            var expr = 
+                (from c in customers
+                 from o in c.Orders
+                 select o.Quantity
+                 ).Min();
+
+            Console.WriteLine(expr);
+        }
+
+        public static void MinMaxComplex()
+        {
+            var expr = 
+                (from c in customers
+                 from o in c.Orders
+                 select new { o.IdProduct, o.Quantity }
+                 ).Min(o => o.Quantity);
+
+            Console.WriteLine(expr);
+
+        }
+
+        #endregion
 
 
     }
