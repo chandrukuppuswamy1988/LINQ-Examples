@@ -112,7 +112,7 @@ namespace LINQToObject
 
         static void Main(string[] args)
         {
-            MinMaxComplex();
+            ContainsOperator();
             Console.ReadLine();
 
         }
@@ -546,6 +546,52 @@ namespace LINQToObject
         }
 
         #endregion
+
+        #region QUANTIFIER OPERATORS
+
+        public static void AnyOperator()
+        {
+            bool result = 
+                (from c in customers
+                 from o in c.Orders
+                 select o)
+                 .Any(o => o.IdProduct == 1); 
+
+            result = Enumerable.Empty<Order>().Any(); // Makes the boolean false since empty operator returns list of zero items
+
+        }
+
+        public static void AllOperator()
+        {
+            bool result = 
+                (from c in customers
+                 from o in c.Orders
+                 select o)
+                 .All(o => o.Quantity > 0); // returns true if all the items of the lists contains quantity greater than 0
+
+            result = Enumerable.Empty<Order>().All(o => o.Quantity > 0); // returns true since no items found the predicate never called
+
+        }
+
+        public static void ContainsOperator()
+        {
+            var orderOfProductOne = new Order
+            {
+                IdOrder = 1,
+                Quantity = 3,
+                IdProduct =1,
+                Shipped = false,
+                Month = "January"
+            };
+            bool result = customers[0].Orders.Contains(orderOfProductOne); 
+            // the above will fail since we have not override the equals and gethashcode methods for order class
+
+
+
+        }
+
+        #endregion
+
 
 
     }
